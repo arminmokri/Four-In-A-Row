@@ -69,8 +69,8 @@ public class MinMaxNode {
             childs.add(minMaxNode_child1);
         }
          */
-        for (int j = 0; j < four_in_a_row.Board.size; j++) {
-            if (board.getCell(four_in_a_row.Board.size - 1, j).getColor() == 0) {
+        for (int j = 0; j < board.getSize(); j++) {
+            if (board.getCell(board.getSize() - 1, j).getColor() == 0) {
                 four_in_a_row.Board board_child = new four_in_a_row.Board(board);
                 board_child.move(j, player);
 
@@ -107,9 +107,9 @@ public class MinMaxNode {
     }
 
     private void Stuffed() {
-        stuffed = new int[four_in_a_row.Board.size];
-        for (int j = 0; j < four_in_a_row.Board.size; j++) {
-            for (int i = 0; i < four_in_a_row.Board.size; i++) {
+        stuffed = new int[board.getSize()];
+        for (int j = 0; j < board.getSize(); j++) {
+            for (int i = 0; i < board.getSize(); i++) {
                 if (board.getCell(i, j).getColor() != 0) {
                     stuffed[j]++;
                 } else {
@@ -122,9 +122,9 @@ public class MinMaxNode {
     private void Evalution(int player) {
 
         Stuffed();
-        directions = new Direction[four_in_a_row.Board.size];
+        directions = new Direction[board.getSize()];
         value = 0;
-        for (int j = 0; j < four_in_a_row.Board.size; j++) {
+        for (int j = 0; j < board.getSize(); j++) {
             directions[j] = EvalutionColumn(j, player);
             if (directions[j] != null) {
                 directions[j].Calculate();
@@ -145,7 +145,7 @@ public class MinMaxNode {
 
         Direction direction = new Direction();
 
-        for (int j = column + 1; j < four_in_a_row.Board.size; j++) {
+        for (int j = column + 1; j < board.getSize(); j++) {
             if (board.getCell(row, j).getColor() == player) {
                 direction.Right++;
             } else {
@@ -169,7 +169,7 @@ public class MinMaxNode {
             }
         }
 
-        for (int i = row + 1, j = column + 1; i < four_in_a_row.Board.size && j < four_in_a_row.Board.size; i++, j++) {
+        for (int i = row + 1, j = column + 1; i < board.getSize() && j < board.getSize(); i++, j++) {
             if (board.getCell(i, j).getColor() == player) {
                 direction.Right_Up++;
             } else {
@@ -185,7 +185,7 @@ public class MinMaxNode {
             }
         }
 
-        for (int i = row + 1, j = column - 1; i < four_in_a_row.Board.size && j >= 0; i++, j--) {
+        for (int i = row + 1, j = column - 1; i < board.getSize() && j >= 0; i++, j--) {
             if (board.getCell(i, j).getColor() == player) {
                 direction.Left_Up++;
             } else {
@@ -193,7 +193,7 @@ public class MinMaxNode {
             }
         }
 
-        for (int i = row - 1, j = column + 1; i >= 0 && j < four_in_a_row.Board.size; i--, j++) {
+        for (int i = row - 1, j = column + 1; i >= 0 && j < board.getSize(); i--, j++) {
             if (board.getCell(i, j).getColor() == player) {
                 direction.Right_Down++;
             } else {
@@ -217,8 +217,8 @@ public class MinMaxNode {
     }
 
     public void PrintBoard() {
-        for (int ii = 0; ii < four_in_a_row.Board.size; ii++) {
-            for (int jj = 0; jj < four_in_a_row.Board.size; jj++) {
+        for (int ii = 0; ii < board.getSize(); ii++) {
+            for (int jj = 0; jj < board.getSize(); jj++) {
                 System.out.print(board.getCell(ii, jj).getColor() + " ");
             }
             System.out.println();
@@ -232,7 +232,6 @@ public class MinMaxNode {
         }
         System.out.println();
     }*/
-
     public four_in_a_row.Board getBoard() {
         return board;
     }

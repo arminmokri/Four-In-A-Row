@@ -11,11 +11,12 @@ package four_in_a_row;
  */
 public class Board {
 
-    public static int size;
+    private int size;
     private Cell[][] cells;
     private int numberOfMoves = 0;
 
     public Board(Cell[][] cells, int numberOfMoves) {
+        this.size = cells.length;
         this.cells = cells;
         this.numberOfMoves = numberOfMoves;
     }
@@ -40,14 +41,6 @@ public class Board {
             }
         }
         this.numberOfMoves = board.numberOfMoves;
-    }
-
-    public static int getSize() {
-        return size;
-    }
-
-    public Cell getCell(int i, int j) {
-        return cells[i][j];
     }
 
     public int win() {
@@ -86,7 +79,6 @@ public class Board {
         numberOfMoves++;
         if (column < 0 || column > size - 1 || cells[size - 1][column].getColor() != 0) {
             return -1;
-            //throw new Exception("invalid move player " + playerColor);
         } else {
             for (int i = 0; i < size; i++) {
                 if (cells[i][column].getColor() == 0) {
@@ -98,14 +90,22 @@ public class Board {
         return 0;
     }
 
-    public int getNumberOfMoves() {
-        return numberOfMoves;
-    }
-
     private boolean checkColor(Cell cell1, Cell cell2) {
         if (cell1.getColor() == 0) {
             return false;
         }
         return cell1.getColor() == cell2.getColor();
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Cell getCell(int i, int j) {
+        return cells[i][j];
+    }
+
+    public int getNumberOfMoves() {
+        return numberOfMoves;
     }
 }

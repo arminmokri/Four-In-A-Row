@@ -32,7 +32,7 @@ public class PlayerGUI extends Player {
 
                 @Override
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    jLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/oval25.png")));
+                    jLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/red25.png")));
                 }
 
                 @Override

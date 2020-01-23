@@ -158,28 +158,22 @@ public class JFrameMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPlayer1Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPlayer1Level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPlayer2Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPlayer2Level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 34, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPlayer1Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPlayer1Level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPlayer2Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPlayer2Level, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 34, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,6 +195,10 @@ public class JFrameMain extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jSeparator1)
             .addComponent(jSeparator3)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +266,7 @@ public class JFrameMain extends javax.swing.JFrame {
         if (player1_type.equals("System(Artificial Intelligence)")) {
             player1 = new PlayerAI(1, player1_game_level, debug);
         } else if (player1_type.equals("System(Random)")) {
-            player1 = new PlayerRandom(1);
+            player1 = new PlayerRandom(1, board_size);
         }
 
         // Player 2 configs
@@ -279,16 +277,16 @@ public class JFrameMain extends javax.swing.JFrame {
         if (player2_type.equals("System(Artificial Intelligence)")) {
             player2 = new PlayerAI(2, player2_game_level, debug);
         } else if (player2_type.equals("System(Random)")) {
-            player2 = new PlayerRandom(2);
+            player2 = new PlayerRandom(2, board_size);
         } else if (player2_type.equals("User")) {
-            PlayerGUI playerGUI = new PlayerGUI(2, board_size, nutSize);
-            player2 = playerGUI;
+            player2 = new PlayerGUI(2, board_size, nutSize);
             // jPanelAction
             jPanelPlayer2Action = new JPanel();
             jPanelPlayer2Action.setBackground(Color.WHITE);
             jPanelPlayer2Action.setLayout(new GridLayout(1, board_size));
             jPanelPlayer2Action.setSize(board_size * nutSize, nutSize);
             for (int i = 0; i < board_size; i++) {
+                PlayerGUI playerGUI = (PlayerGUI) player2;
                 jPanelPlayer2Action.add(playerGUI.getjLabelsAction()[i]);
             }
             jPanel2.add(jPanelPlayer2Action, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, board_size * nutSize, nutSize));
@@ -300,22 +298,22 @@ public class JFrameMain extends javax.swing.JFrame {
         // jPanelgame
         jPanelgame = new JPanel();
         jPanelgame.setBackground(Color.BLACK);
-        jPanelgame.setLayout(new GridLayout(game.getBoard().size, game.getBoard().size));
-        jPanelgame.setSize(nutSize * game.getBoard().size, nutSize * game.getBoard().size);
-        jLabelsGame = new JLabel[game.getBoard().size][game.getBoard().size];
-        for (int i = 0; i < game.getBoard().size; i++) {
-            for (int j = 0; j < game.getBoard().size; j++) {
+        jPanelgame.setLayout(new GridLayout(game.getBoard().getSize(), game.getBoard().getSize()));
+        jPanelgame.setSize(nutSize * game.getBoard().getSize(), nutSize * game.getBoard().getSize());
+        jLabelsGame = new JLabel[game.getBoard().getSize()][game.getBoard().getSize()];
+        for (int i = 0; i < game.getBoard().getSize(); i++) {
+            for (int j = 0; j < game.getBoard().getSize(); j++) {
                 jLabelsGame[i][j] = new JLabel();
                 jLabelsGame[i][j].setSize(nutSize, nutSize);
                 jPanelgame.add(jLabelsGame[i][j]);
 
             }
         }
-        jPanel2.add(jPanelgame, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, nutSize, nutSize * game.getBoard().size, nutSize * game.getBoard().size));
+        jPanel2.add(jPanelgame, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, nutSize, nutSize * game.getBoard().getSize(), nutSize * game.getBoard().getSize()));
 
         // set frame size and location
-        this.setSize(this.getInsets().left + this.getInsets().right + (nutSize * game.getBoard().size),
-                this.getInsets().top + this.getInsets().bottom + (nutSize * (game.getBoard().size + 1)));
+        this.setSize(this.getInsets().left + this.getInsets().right + (nutSize * game.getBoard().getSize()),
+                this.getInsets().top + this.getInsets().bottom + (nutSize * (game.getBoard().getSize() + 1)));
         this.setLocationCenter();
 
         //
@@ -353,17 +351,17 @@ public class JFrameMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jSlider1StateChanged
 
     public void printGame() {
-        for (int i = 0; i < game.getBoard().size; i++) {
-            for (int j = 0; j < game.getBoard().size; j++) {
+        for (int i = 0; i < game.getBoard().getSize(); i++) {
+            for (int j = 0; j < game.getBoard().getSize(); j++) {
                 switch (game.getBoard().getCell(i, j).getColor()) {
                     case 0:
-                        jLabelsGame[game.getBoard().size - 1 - i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/white25.png")));
+                        jLabelsGame[game.getBoard().getSize() - 1 - i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/white25.png")));
                         break;
                     case 1:
-                        jLabelsGame[game.getBoard().size - 1 - i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/blue25.png")));
+                        jLabelsGame[game.getBoard().getSize() - 1 - i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/blue25.png")));
                         break;
                     case 2:
-                        jLabelsGame[game.getBoard().size - 1 - i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/red25.png")));
+                        jLabelsGame[game.getBoard().getSize() - 1 - i][j].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/red25.png")));
                         break;
                     default:
                         break;
@@ -372,8 +370,8 @@ public class JFrameMain extends javax.swing.JFrame {
         }
         this.repaint();
     }
-    
-    public void showResult(String string){
+
+    public void showResult(String string) {
         JOptionPane.showMessageDialog(null, string);
     }
 

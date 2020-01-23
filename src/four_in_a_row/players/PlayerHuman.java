@@ -19,7 +19,7 @@ public class PlayerHuman extends Player {
 
     @Override
     public int getMove(four_in_a_row.Board board) {
-        System.out.println("Enter");
+        System.out.print("Enter Column: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }

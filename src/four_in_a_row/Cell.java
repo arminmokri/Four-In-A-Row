@@ -11,11 +11,14 @@ package four_in_a_row;
  */
 public class Cell {
 
-    private int row, column;
+    private int row;
+    private int column;
     private int color;
 
-    public Cell(int row, int column, int color) {
-        this(column, row);
+    public Cell() {
+    }
+
+    public Cell(int color) {
         this.color = color;
     }
 
@@ -24,11 +27,9 @@ public class Cell {
         this.column = column;
     }
 
-    public Cell(int color) {
+    public Cell(int row, int column, int color) {
+        this(column, row);
         this.color = color;
-    }
-
-    public Cell() {
     }
 
     public Cell(Cell cell) {
@@ -37,27 +38,28 @@ public class Cell {
         this.color = cell.getColor();
     }
 
-    public int getRow() {
-        return row;
-    }
-
     protected void setRow(int row) {
         this.row = row;
     }
 
-    public int getColumn() {
-        return column;
+    public int getRow() {
+        return row;
     }
 
     protected void setColumn(int column) {
         this.column = column;
     }
 
-    public int getColor() {
-        return color;
+    public int getColumn() {
+        return column;
     }
 
     public void setColor(int color) {
         this.color = color;
     }
+
+    public int getColor() {
+        return color;
+    }
+
 }

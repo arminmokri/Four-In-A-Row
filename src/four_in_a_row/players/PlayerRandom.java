@@ -14,17 +14,24 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class PlayerRandom extends Player {
 
+    private int boardSize;
+
     public PlayerRandom(int col) {
         super(col);
+    }
+
+    public PlayerRandom(int col, int board_size) {
+        super(col);
+        this.boardSize = board_size;
     }
 
     @Override
     public int getMove(Board board) {
         try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(0, 500));//5200
+            Thread.sleep(ThreadLocalRandom.current().nextInt(0, 500));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return ThreadLocalRandom.current().nextInt(0, 5);
+        return ThreadLocalRandom.current().nextInt(0, boardSize);
     }
 }

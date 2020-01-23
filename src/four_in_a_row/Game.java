@@ -7,7 +7,6 @@ package four_in_a_row;
 
 import four_in_a_row.players.Player;
 import four_in_a_row.gui.JFrameMain;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,17 +14,19 @@ import javax.swing.JOptionPane;
  */
 public class Game extends Thread {
 
-    private int timeLimit = 5000;
+    private int timeLimit;
     private Player[] players;
     private Board board;
-    private int move, res, turn = 0;
+    private int move;
+    private int res;
+    private int turn;
     private JFrameMain jFrameMain;
     private boolean debug;
 
-    public Game(Player p1, Player p2, int border_size, int time_limit, JFrameMain jFrameMain, boolean debug) {
+    public Game(Player player1, Player player2, int border_size, int time_limit, JFrameMain jFrameMain, boolean debug) {
         players = new Player[2];
-        this.players[0] = p1;
-        this.players[1] = p2;
+        this.players[0] = player1;
+        this.players[1] = player2;
         this.timeLimit = time_limit * 1000;
         this.board = new Board(border_size);
         this.jFrameMain = jFrameMain;
@@ -43,6 +44,7 @@ public class Game extends Thread {
 
     @Override
     public void run() {
+        this.turn = 0;
         while (board.win() == 0) {
 
             res = -2;
@@ -70,7 +72,6 @@ public class Game extends Thread {
                 t.join(timeLimit);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                break;
             }
             if (res == -2) {
                 break;
